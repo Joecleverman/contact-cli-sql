@@ -6,7 +6,7 @@ describe 'Contact' do
       expect(Contact).to be_a(Class)
     end
   
-     # describe '#initialize=' do
+     describe '#initialize=' do
         it 'writes the name of the person to an instance variable @name' do
           merline = Merline.new
           merline.name = "Merline"
@@ -34,7 +34,7 @@ describe 'Contact' do
 
         expect(merline.instance_variable_get(:@email)).to eq("merline@noukod.com")
      end
-
+    end
      describe ".create_table" do
         it 'creates the contact table in the database' do
           Contact.create_table
@@ -67,12 +67,12 @@ describe 'Contact' do
     end
 
     it 'takes in a hash of attributes and uses metaprogramming to create a new student object. Then it uses the #save method to save that student to the database' do
-      Contact.create(name: "Merline", phone: "(509)44441112", address:"Delmas 83". email:"merline@noukod.com")
+      Contact.create(name: "Merline", phone: "(509)44441112", address:"Delmas 83", email:"merline@noukod.com")
       expect(DB[:conn].execute("SELECT * FROM contacts")).to eq([[1, "Merline", "(509)44441112", "delmas 83", "merline@noukod.com"]])
     end
 
     it 'returns the new object that it instantiated' do
-      contact = Contact.create(name: "Merline", phone_number: "(509)44441112", address:"Delmas 83". email:"merline@noukod.com")
+      contact = Contact.create(name: "Merline", phone: "(509)44441112", address:"Delmas 83", email:"merline@noukod.com")
       expect(contact).to be_a(Contact)
       expect(contact.name).to eq("Merline")
       expect(contact.phone).to eq("(509)44441112")
@@ -96,4 +96,4 @@ describe 'Contact' do
       expect(all_from_db.any? {|contact| contact.name == "Merline"}).to eq(true)
     end
   end
-    #end
+  end
